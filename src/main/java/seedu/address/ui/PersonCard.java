@@ -14,11 +14,10 @@ import seedu.address.model.person.Person;
  */
 public class PersonCard extends UiPart<Region> {
 
+    private static final String FXML = "PersonListCard.fxml";
+    public final Person person;
     @FXML
     private Label remark;
-
-    private static final String FXML = "PersonListCard.fxml";
-
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
@@ -26,9 +25,6 @@ public class PersonCard extends UiPart<Region> {
      *
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
-
-    public final Person person;
-
     @FXML
     private HBox cardPane;
     @FXML
