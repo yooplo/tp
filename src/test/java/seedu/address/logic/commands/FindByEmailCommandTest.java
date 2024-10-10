@@ -1,12 +1,9 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import seedu.address.model.person.EmailContainsKeywordsPredicate;
 import static seedu.address.testutil.TypicalPersons.INA;
 import static seedu.address.testutil.TypicalPersons.REG;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -19,14 +16,15 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.EmailContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindByContactCommand}.
  */
 public class FindByEmailCommandTest {
-    final private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    final private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void equals() {
