@@ -14,11 +14,17 @@ import seedu.address.model.person.ContainsKeywordsPredicate;
 public abstract class AbstractFindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
+    public static final String FIND_NAME_COMMAND_WORD = "/n";
+    public static final String FIND_EMAIL_COMMAND_WORD = "/e";
+    public static final String FIND_CONTACT_COMMAND_WORD = "/c";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names, contacts or emails "
             + "contain any of the specified keywords (case-insensitive) and displays them as a list with indices.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Example:\n"
+            + COMMAND_WORD + " " + FIND_NAME_COMMAND_WORD + " alice bob charlie\n"
+            + COMMAND_WORD + " " + FIND_CONTACT_COMMAND_WORD + " [CONTACT NUMBER]\n"
+            + COMMAND_WORD + " " + FIND_EMAIL_COMMAND_WORD + " alex@gmail.com";
 
     protected final ContainsKeywordsPredicate predicate;
 

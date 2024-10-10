@@ -6,16 +6,16 @@ import seedu.address.model.person.EmailContainsKeywordsPredicate;
  * Finds and lists all persons in address book whose email contains any of the argument keywords.
  * Keyword matching is case-insensitive.
  */
-public class FindEmailCommand extends AbstractFindCommand {
+public class FindByEmailCommand extends AbstractFindCommand {
 
     public static final String COMMAND_WORD = "find /e";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose emails "
             + "contain any of the specified keywords (case-insensitive) and displays them as a list with indices.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Example: " + COMMAND_WORD + " alex@gmail.com";
 
-    public FindEmailCommand(EmailContainsKeywordsPredicate predicate) {
+    public FindByEmailCommand(EmailContainsKeywordsPredicate predicate) {
         super(predicate);
     }
 
@@ -26,7 +26,7 @@ public class FindEmailCommand extends AbstractFindCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof FindEmailCommand otherFindCommand)) {
+        if (!(other instanceof FindByEmailCommand otherFindCommand)) {
             return false;
         }
         return super.predicate.equals(otherFindCommand.predicate);
