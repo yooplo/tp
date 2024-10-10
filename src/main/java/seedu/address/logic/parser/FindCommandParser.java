@@ -11,6 +11,8 @@ import seedu.address.logic.commands.FindByEmailCommand;
 import seedu.address.logic.commands.FindByNameCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.EmailContainsKeywordsPredicate;
+import seedu.address.logic.commands.FindByContactCommand;
+import seedu.address.model.person.ContactContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 
 /**
@@ -38,7 +40,6 @@ public class FindCommandParser implements Parser<AbstractFindCommand> {
         String searchTerms = m.group("arguments");
         String[] searchTermArray = searchTerms.split("\\s+");
 
-        // return approppriate FindCommand class depending on tag
         // return appropriate FindCommand class depending on tag
         switch (tag) {
         case "/n":
@@ -47,6 +48,9 @@ public class FindCommandParser implements Parser<AbstractFindCommand> {
         case "/e":
             return new FindByEmailCommand(
                     new EmailContainsKeywordsPredicate(Arrays.asList(searchTermArray)));
+        case "/c":
+            return new FindByContactCommand(
+                    new ContactContainsKeywordsPredicate(Arrays.asList(searchTermArray)));
         default:
             return null; // temporary value, this should not occur due to regex
         }
