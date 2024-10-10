@@ -28,18 +28,10 @@ public class FindCommandParser implements Parser<AbstractFindCommand> {
      */
     public AbstractFindCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        int index = trimmedArgs.indexOf(' ');
-        String tag;
-        String searchTerms = "";
-        // Check if there is a whitespace character in the string
-        if (index != -1) {
-            tag = trimmedArgs.substring(0, index); // Part before the first whitespace
-            searchTerms = trimmedArgs.substring(index + 1); // Part after the first whitespace
-        } else {
-            tag = trimmedArgs;
-        }
-
-        Matcher m = KEYWORD_EXTRACTOR.matcher(tag); // find tag and search words
+        String[] tagAndSearchTerms = getTagAndSearchTerms(trimmedArgs);
+        String tag = tagAndSearchTerms[0];
+        String searchTerms = tagAndSearchTerms[1];
+        Matcher m = KEYWORD_EXTRACTOR.matcher(tag); // check if the correct tag exists
 
         // will throw exception if no args/command format not correct
         if (args.isEmpty() || !m.matches()) {
@@ -50,7 +42,7 @@ public class FindCommandParser implements Parser<AbstractFindCommand> {
         // extract tag and search argument
         String[] searchTermArray = searchTerms.split("\\s+");
 
-        // return appropriate FindCommand class depending on tag
+        // return appropriate FindCommand class and specific warning message to user based on the tag
         switch (tag) {
         case "/n":
             if (searchTerms.isEmpty()) {
@@ -70,5 +62,13 @@ public class FindCommandParser implements Parser<AbstractFindCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AbstractFindCommand.MESSAGE_USAGE));
         }
+    }
+    private String[] getTagAndSearchTerms(String input) {
+        int index = input.indexOf(' ');
+        String[] result = new String[2];
+        // Check if there is a whitespace character in the string
+        result[0] = index != -1 ? input.substring(0, index) : input; // Part before the first whitespace
+        result[1] = index != -1 ? input.substring(index + 1) : ""; // Part after the first whitespace
+        return result;
     }
 }
