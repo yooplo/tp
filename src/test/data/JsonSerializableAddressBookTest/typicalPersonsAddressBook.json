@@ -42,5 +42,17 @@
     "email" : "anna@example.com",
     "address" : "4th street",
     "tags" : [ ]
+  }, {
+    "name" : "Reg Loo",
+    "phone" : "8482424",
+    "email" : "regina@example.com",
+    "address" : "little india",
+    "tags" : [ ]
+  }, {
+    "name" : "Ina Crust",
+    "phone" : "8482131",
+    "email" : "regina@example.com",
+    "address" : "chicago ave",
+    "tags" : [ ]
   } ]
 }
