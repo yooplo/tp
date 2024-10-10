@@ -89,5 +89,4 @@ public class FindByEmailCommandTest {
     private EmailContainsKeywordsPredicate preparePredicate(String userInput) {
         return new EmailContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
-
 }
