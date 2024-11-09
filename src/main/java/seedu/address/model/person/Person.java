@@ -110,9 +110,17 @@ public class Person {
     }
 
     /**
+     * Checks whether the person has any tags assigned to them.
+     * @return True if there is at least one tag assigned to them
+     */
+    public boolean hasTag() {
+        return !this.getTags().isEmpty();
+    }
+
+    /**
      * Checks whether the person has the tags with the same tag name.
      */
-    public boolean hasTag(Tag t) {
+    public boolean hasTagWithValue(Tag t) {
         return this.getTags().contains(t);
     }
 

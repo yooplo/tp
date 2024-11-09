@@ -1,6 +1,7 @@
 package seedu.address.model.person;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.util.ToStringBuilder;
 
@@ -9,33 +10,55 @@ import seedu.address.commons.util.ToStringBuilder;
  */
 public class TagContainsKeywordsPredicate extends ContainsKeywordsPredicate {
 
+    /**
+     * Constructs a {@code TagContainsKeywordsPredicate} with the given list of keywords.
+     * Each keyword is converted to lowercase to facilitate case-insensitive matching.
+     *
+     * @param keywords List of keywords to match against {@code Person}'s tags.
+     */
     public TagContainsKeywordsPredicate(List<String> keywords) {
-        super(keywords);
+        super(keywords.stream()
+                .map(String::toLowerCase)
+                .collect(Collectors.toList()));
     }
 
     @Override
     public boolean test(Person person) {
-        return this.getKeywords().stream()
-                .anyMatch(keyword -> person.getTags().toString().toLowerCase().contains(keyword.toLowerCase()));
+        return getKeywords().stream().anyMatch(keyword -> isKeywordPresentInPersonTags(keyword, person));
+    }
+
+    /**
+     * Checks if a given keyword is present in a person's tags.
+     * If the keyword is empty, it checks whether the person has no tags.
+     *
+     * @param keyword The keyword to search for in the person's tags.
+     * @param person The person whose tags are to be checked.
+     * @return True if the keyword is present in the person's tags
+     *     or if the keyword is empty and the person has no tags.
+     */
+    private boolean isKeywordPresentInPersonTags(String keyword, Person person) {
+        if (keyword.isEmpty()) {
+            return !person.hasTag();
+        }
+        return person.getTags().stream()
+                .map(tag -> tag.toString().toLowerCase())
+                .anyMatch(tag -> tag.contains(keyword));
     }
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
+        if (this == other) {
             return true;
         }
-
-        // instanceof handles nulls
         if (!(other instanceof TagContainsKeywordsPredicate)) {
             return false;
         }
-
-        TagContainsKeywordsPredicate otherTagContainsKeywordsPredicate = (TagContainsKeywordsPredicate) other;
-        return this.getKeywords().equals(otherTagContainsKeywordsPredicate.getKeywords());
+        TagContainsKeywordsPredicate that = (TagContainsKeywordsPredicate) other;
+        return this.getKeywords().equals(that.getKeywords());
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).add("keywords", this.getKeywords()).toString();
+        return new ToStringBuilder(this).add("keywords", getKeywords()).toString();
     }
 }

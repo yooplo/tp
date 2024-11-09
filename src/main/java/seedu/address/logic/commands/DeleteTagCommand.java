@@ -51,7 +51,7 @@ public class DeleteTagCommand extends Command {
 
         Person personToEdit = lastShownList.get(targetIndex.getZeroBased());
         assert personToEdit != null;
-        if (!personToEdit.hasTag(this.targetTag)) {
+        if (!personToEdit.hasTagWithValue(this.targetTag)) {
             throw new CommandException(Messages.MESSAGE_NO_TAG);
         }
 

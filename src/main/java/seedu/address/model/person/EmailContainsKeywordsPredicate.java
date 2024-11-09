@@ -16,7 +16,8 @@ public class EmailContainsKeywordsPredicate extends ContainsKeywordsPredicate {
     @Override
     public boolean test(Person person) {
         return super.getKeywords().stream()
-                .anyMatch(keyword -> person.getEmail().value.toLowerCase().contains(keyword.toLowerCase()));
+                .anyMatch(keyword -> !keyword.isEmpty()
+                        && person.getEmail().value.toLowerCase().contains(keyword.toLowerCase()));
     }
 
     @Override

@@ -16,7 +16,8 @@ public class PhoneContainsKeywordsPredicate extends ContainsKeywordsPredicate {
     @Override
     public boolean test(Person person) {
         return this.getKeywords().stream()
-                .anyMatch(keyword -> person.getPhone().value.toLowerCase().contains(keyword.toLowerCase()));
+                .anyMatch(keyword -> !keyword.isEmpty()
+                        && person.getPhone().value.toLowerCase().contains(keyword.toLowerCase()));
     }
 
     @Override

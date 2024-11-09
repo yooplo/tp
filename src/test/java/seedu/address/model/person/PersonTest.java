@@ -149,10 +149,10 @@ public class PersonTest {
     }
 
     @Test
-    public void hasTag() {
+    public void hasTagWithValue() {
         Person aliceCopy = new PersonBuilder(ALICE).build();
-        assertTrue(aliceCopy.hasTag(new Tag("friends")));
-        assertFalse(aliceCopy.hasTag(new Tag("TEST")));
+        assertTrue(aliceCopy.hasTagWithValue(new Tag("friends")));
+        assertFalse(aliceCopy.hasTagWithValue(new Tag("TEST")));
     }
 
     @Test
