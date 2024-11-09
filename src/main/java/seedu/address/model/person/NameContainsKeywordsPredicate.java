@@ -5,34 +5,48 @@ import java.util.List;
 import seedu.address.commons.util.ToStringBuilder;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests if a {@code Person}'s {@code Name} matches any of the keywords provided.
  */
 public class NameContainsKeywordsPredicate extends ContainsKeywordsPredicate {
 
+    /**
+     * Constructs a {@code NameContainsKeywordsPredicate} with the specified keywords.
+     * Each keyword is converted to lowercase to facilitate case-insensitive matching.
+     *
+     * @param keywords List of keywords to match against a person's name.
+     */
     public NameContainsKeywordsPredicate(List<String> keywords) {
-        super(keywords);
+        // Normalizing keywords to lower case to optimize searches
+        super(keywords.stream()
+                .filter(keyword -> keyword != null && !keyword.isEmpty())
+                .map(String::toLowerCase)
+                .toList());
     }
 
     @Override
     public boolean test(Person person) {
-        return this.getKeywords().stream()
-                .anyMatch(keyword -> !keyword.isEmpty()
-                        && person.getName().fullName.toLowerCase().contains(keyword.toLowerCase()));
+        if (person == null || person.getName() == null) {
+            return false;
+        }
+
+        String fullName = person.getName().fullName.toLowerCase();
+        return super.getKeywords().stream()
+                .anyMatch(fullName::contains);
     }
 
     @Override
     public boolean equals(Object other) {
-        if (other == this) {
+        if (this == other) {
             return true;
         }
 
-        // instanceof handles nulls
+        // Check for type compatibility
         if (!(other instanceof NameContainsKeywordsPredicate)) {
             return false;
         }
 
-        NameContainsKeywordsPredicate otherNameContainsKeywordsPredicate = (NameContainsKeywordsPredicate) other;
-        return this.getKeywords().equals(otherNameContainsKeywordsPredicate.getKeywords());
+        NameContainsKeywordsPredicate otherPredicate = (NameContainsKeywordsPredicate) other;
+        return this.getKeywords().equals(otherPredicate.getKeywords());
     }
 
     @Override
